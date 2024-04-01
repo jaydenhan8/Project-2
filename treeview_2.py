@@ -17,7 +17,7 @@ class Clinic_Forum(tk.Tk):
 
         self.frames = {}
 
-        for F in (Page1, Page2):
+        for F in (Page1, Page2, Page3):
 
             frame = F(container, self)
 
@@ -49,10 +49,6 @@ class Menu_Clinic():
             menuFile = Menu(self.menubar)
             menuFile.add_command(label="Save", command=None)
             self.menubar.add_cascade(label="File", menu=menuFile)
-
-
-
-
 
 
 class Page1(tk.Frame):
@@ -108,44 +104,50 @@ class Page1(tk.Frame):
                 #creating label for adress section
                 address_label = tk.Label(self, text="Address:")
                 address_label.pack(anchor='w', padx=10)
-                address_entry = tk.Entry(self)
-                address_entry.pack(anchor="w", padx=10)
+                street_label=tk.Label(self, text="Street Address:")
+                street_label.pack(anchor='w', padx=10)
+                street_entry = tk.Entry(self)
+                street_entry.pack(anchor='w', padx=10)
 
-                #create entries for adress section here:
+                asu_label=tk.Label(self, text="Apt/Suite/Unit")
+                asu_label.pack(anchor='w', padx=10)
+                asu_entry = tk.Entry(self)
+                asu_entry.pack(anchor='w', padx=10)
 
-            elif column == "Billing Information":
-                label = tk.Label(self, text=column, anchor='w')
-                label.pack(fill='x')
+                city_label=tk.Label(self, text="City")
+                city_label.pack(anchor='w', padx=10)
+                city_entry =tk.Entry(self)
+                city_entry.pack(anchor='w', padx=10)
+
+                Province_label = tk.Label(self, text="Province")
+                Province_label.pack(anchor='w', padx=10)
+                Province_entry = tk.Entry(self)
+                Province_entry.pack(anchor='w', padx=10)
+
+                Postcode_label = tk.Label(self, text="Postal Code")
+                Postcode_label.pack(anchor='w', padx=10)
+                Postcode_entry = tk.Entry(self)
+                Postcode_entry.pack(anchor='w', padx=10)
+
+                birth_label = tk.Label(self, text="Date of Birth:")
+                birth_label.pack(anchor='w', padx=10)
+                birthday_label = tk.Label(self, text="dd/mm/yyyy")
+                birthday_label.pack(anchor='w', padx=10)
+                birthday_entry = tk.Entry(self)
+                birthday_entry.pack(anchor='w', padx=10)
 
 
-                #add labels + entries for billing info here
-                billinginfo_label = tk.Label(self, text="Billing Information:")
-                billinginfo_label.pack(anchor="w", padx=10)
 
-                billinginfo_entry = tk.Entry(self)
-                billinginfo_entry.pack(anchor="w", padx=10)
 
-                #labels for insurance information
-                insuranceinfo_label = tk.Label(self, text="Insurance Information:")
-                insuranceinfo_label.pack(anchor="w", padx=10)
 
-                insuranceinfo_entry = tk.Entry(self)
-                insuranceinfo_entry.pack(anchor="w", padx=10)
 
-                insuranceinfoif_label = tk.Label(self, text="Insurance Information (if other than patient):")
-                insuranceinfoif_label.pack(anchor="w", padx=10)
-
-                insuranceinfoif_entry = tk.Entry(self)
-                insuranceinfoif_entry.pack(anchor="w", padx=10)
-
-            else:
-                label = tk.Label(self, text=column, anchor='w')
-                label.pack(fill='x')
-
-                tk.Label(self, text="", height=1).pack()  # adding space between the labels/columns for design purposes/organization
+      # adding space between the labels/columns for design purposes/organization
 
         button = tk.Button(self, text="Go to Page 2", command=lambda: controller.show_frame(Page2))
         button.pack(side="bottom") #changed position of the button
+
+        button = tk.Button(self, text="Go to Page 3", command=lambda: controller.show_frame(Page3))
+        button.pack(side="bottom")
 
         #tree.insert(parent="", 0, text="Title", values=())
 
@@ -158,10 +160,51 @@ class Page2(tk.Frame):
 
         label = tk.Label(self, text= "Clinic Form 2")
 
+
         label.pack(padx=10,pady=10)
-        d_columns = ["Emergency Contact", "Parent/Guardian", "Medical Details"]
+        d_columns = ["Contact Information", "Billing Information" , "Emergency Contact", "Parent/Guardian", "Medical Details"]
+        healthcard_label = tk.Label(self, text="Health Card Number", anchor='w')
+        healthcard_label.pack(fill='x')
+
+        healthcard_entry = tk.Entry(self)
+        healthcard_entry.pack(anchor='w', padx=10)
+
+
+
 
         for column in d_columns:
+            if column=="Health Card Number":
+                label = tk.Label(self, text=column, anchor='w')
+                label.pack(fill='x')
+
+                healthcard_entry = tk.Entry(self)
+                healthcard_entry.pack(anchor='w', padx=10)
+
+
+            if column == "Contact Information": #home, work,cell,email
+                label = tk.Label(self, text=column, anchor='w')
+                label.pack(fill='x')
+
+                home_label = tk.Label(self, text="Home #")
+                home_label.pack(anchor='w', padx=10)
+                home_entry = tk.Entry(self)
+                home_entry.pack(anchor='w', padx=10)
+
+                work_label = tk.Label(self, text="Work #")
+                work_label.pack(anchor='w', padx=10)
+                work_entry = tk.Entry(self)
+                work_entry.pack(anchor='w', padx=10)
+
+                Cell_label = tk.Label(self, text="Cell #")
+                Cell_label.pack(anchor='w', padx=10)
+                Cell_entry = tk.Entry(self)
+                Cell_entry.pack(anchor='w', padx=10)
+
+                email_label = tk.Label(self, text="Email")
+                email_label.pack(anchor='w', padx=10)
+                email_entry = tk.Entry(self)
+                email_entry.pack(anchor='w', padx=10)
+
             if column == "Emergency Contact":
                 label = tk.Label(self, text=column, anchor='w')
                 label.pack(fill='x')
@@ -198,10 +241,51 @@ class Page2(tk.Frame):
                 medicaldetails_entry = tk.Entry(self, width=50, font=("Arial 20"))
                 medicaldetails_entry.pack(anchor="w", padx=10)
 
+            elif column == "Billing Information":
+                label = tk.Label(self, text=column, anchor='w')
+                label.pack(fill='x')
+
+                # add labels + entries for billing info here
+                billinginfo_label = tk.Label(self, text="Billing Information:")
+                billinginfo_label.pack(anchor="w", padx=10)
+
+                billinginfo_entry = tk.Entry(self)
+                billinginfo_entry.pack(anchor="w", padx=10)
+
+                # labels for insurance information
+                insuranceinfo_label = tk.Label(self, text="Insurance Information:")
+                insuranceinfo_label.pack(anchor="w", padx=10)
+
+                insuranceinfo_entry = tk.Entry(self)
+                insuranceinfo_entry.pack(anchor="w", padx=10)
+
+
+            else:
+                label = tk.Label(self, text=column, anchor='w')
+                label.pack(fill='x')
+
+                tk.Label(self, text="", height=1).pack()
+
         button = tk.Button(self, text="Go to Page 1", command=lambda: controller.show_frame(Page1))
         button.pack(side="bottom")
+        button = tk.Button(self, text="Go to Page 3", command=lambda: controller.show_frame(Page3))
+        button.pack(side="bottom")
+
+class Page3(tk.Frame):
+    def __init__(self, parent, controller):
+
+        tk.Frame.__init__(self, parent)
+
+        label = tk.Label(self, text= "Clinic Form 3")
 
 
+
+
+
+        button = tk.Button(self, text="Go to Page 1", command=lambda: controller.show_frame(Page1))
+        button.pack(side="bottom")
+        button = tk.Button(self, text="Go to Page 2", command=lambda: controller.show_frame(Page2))
+        button.pack(side="bottom")
 
 tk = Clinic_Forum()
 tk.mainloop()
