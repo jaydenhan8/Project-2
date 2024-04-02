@@ -248,10 +248,6 @@ class Page2(tk.Frame):
                 middlen_entry = tk.Entry(self)
                 middlen_entry.pack(anchor='w', padx=10)
 
-                lastn_label = tk.Label(self, text="Last Name")
-                lastn_label.pack(anchor='w', padx=10)
-                lastn_entry = tk.Entry(self)
-                lastn_entry.pack(anchor='w', padx=10)
 
             else:
                 label = tk.Label(self, text=column, anchor='w')
@@ -276,6 +272,10 @@ class Page3(tk.Frame): #
 
         pg_label = tk.Label(self, text="Parent/Guardian Information Continued:")
         pg_label.pack(anchor="w", padx=10)
+        lastn_label = tk.Label(self, text="Last Name")
+        lastn_label.pack(anchor='w', padx=10)
+        lastn_entry = tk.Entry(self)
+        lastn_entry.pack(anchor='w', padx=10)
         Cellr_label = tk.Label(self, text="Phone #")
         Cellr_label.pack(anchor='w', padx=10)
         Cellr_entry = tk.Entry(self)
