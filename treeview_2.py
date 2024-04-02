@@ -17,7 +17,7 @@ class Clinic_Forum(tk.Tk):
 
         self.frames = {}
 
-        for F in (Page1, Page2, Page3, Page4):
+        for F in (Page1, Page2, Page3, Page4, Page5):
 
             frame = F(container, self)
 
@@ -154,6 +154,8 @@ class Page1(tk.Frame):
         button.pack(side="bottom")
         button = tk.Button(self, text="Go to Page 4", command=lambda: controller.show_frame(Page4))
         button.pack(side="bottom")
+        button = tk.Button(self, text="Go to Page 5", command=lambda: controller.show_frame(Page5))
+        button.pack(side="bottom")
 
         #tree.insert(parent="", 0, text="Title", values=())
 
@@ -169,7 +171,7 @@ class Page2(tk.Frame):
 
         label.pack(padx=10,pady=10)
         d_columns = ["Contact Information",]
-        healthcard_label = tk.Label(self, text="Health Card Number", anchor='w')
+        healthcard_label = tk.Label(self, text="Health Card Number (enter 10 digits)", anchor='w')
         healthcard_label.pack(fill='x')
 
         healthcard_entry = tk.Entry(self)
@@ -261,6 +263,8 @@ class Page2(tk.Frame):
         button.pack(side="bottom")
         button = tk.Button(self, text="Go to Page 4", command=lambda: controller.show_frame(Page4))
         button.pack(side="bottom")
+        button = tk.Button(self, text="Go to Page 5", command=lambda: controller.show_frame(Page5))
+        button.pack(side="bottom")
 
 class Page3(tk.Frame): #
     def __init__(self, parent, controller):
@@ -275,7 +279,7 @@ class Page3(tk.Frame): #
         lastn_label = tk.Label(self, text="Last Name")
         lastn_label.pack(anchor='w', padx=10)
         lastn_entry = tk.Entry(self)
-        lastn_entry.pack(anchor='w', padx=10) #
+        lastn_entry.pack(anchor='w', padx=10)
         Cellr_label = tk.Label(self, text="Phone #")
         Cellr_label.pack(anchor='w', padx=10)
         Cellr_entry = tk.Entry(self)
@@ -290,13 +294,6 @@ class Page3(tk.Frame): #
         Relationship_label.pack(anchor='w', padx=10)
         Relationship_entry = tk.Entry(self)
         Relationship_entry.pack(anchor='w', padx=10)
-
-        button = tk.Button(self, text="Go to Page 1", command=lambda: controller.show_frame(Page1))
-        button.pack(side="bottom")
-        button = tk.Button(self, text="Go to Page 2", command=lambda: controller.show_frame(Page2))
-        button.pack(side="bottom")
-        button = tk.Button(self, text="Go to Page 4", command=lambda: controller.show_frame(Page4))
-        button.pack(side="bottom")
 
         for column in d_columns:
 
@@ -316,6 +313,14 @@ class Page3(tk.Frame): #
                 label = tk.Label(self, text=column, anchor='w')
                 label.pack(fill='x')
 
+        button = tk.Button(self, text="Go to Page 1", command=lambda: controller.show_frame(Page1))
+        button.pack(side="bottom")
+        button = tk.Button(self, text="Go to Page 2", command=lambda: controller.show_frame(Page2))
+        button.pack(side="bottom")
+        button = tk.Button(self, text="Go to Page 4", command=lambda: controller.show_frame(Page4))
+        button.pack(side="bottom")
+        button = tk.Button(self, text="Go to Page 5", command=lambda: controller.show_frame(Page5))
+        button.pack(side="bottom")
 
 
 
@@ -324,7 +329,7 @@ class Page4(tk.Frame):
         tk.Frame.__init__(self, parent)
         label = tk.Label(self, text= "Clinic Form 4")
         label.pack(padx=10, pady=10)
-        d_columns = [ "Billing Informaton", "Medical Details"]
+        d_columns = [  "Medical Details", "Insurance Information"]
 
 
         for column in d_columns:
@@ -334,34 +339,61 @@ class Page4(tk.Frame):
                 label.pack(fill='x')
 
                 #medical details with larger entry box
-                medicaldetails_label = tk.Label(self, text="Medical Details:")
+                medicaldetails_label = tk.Label(self, text="Height:")
                 medicaldetails_label.pack(anchor="w", padx=10)
 
-                medicaldetails_entry = tk.Entry(self, width=10, font=("Arial 20"))
+                medicaldetails_entry = tk.Entry(self, width=10,)
+                medicaldetails_entry.pack(anchor="w", padx=10)
+
+                medicaldetails_label = tk.Label(self, text="Weight:")
+                medicaldetails_label.pack(anchor="w", padx=10)
+                medicaldetails_entry = tk.Entry(self, width=10,)
+                medicaldetails_entry.pack(anchor="w", padx=10)
+
+                medicaldetails_label = tk.Label(self, text="Current Medications:")
+                medicaldetails_label.pack(anchor="w", padx=10)
+                medicaldetails_entry = tk.Entry(self)
+                medicaldetails_entry.pack(anchor="w", padx=10)
+                medicaldetails_entry = tk.Entry(self)
+                medicaldetails_entry.pack(anchor="w", padx=10)
+
+
+
+                medicaldetails_label = tk.Label(self, text="Allergies (medical/general):")
+                medicaldetails_label.pack(anchor="w", padx=10)
+                medicaldetails_entry = tk.Entry(self)
+                medicaldetails_entry.pack(anchor="w", padx=10)
+                medicaldetails_entry = tk.Entry(self)
+                medicaldetails_entry.pack(anchor="w", padx=10)
+
+                medicaldetails_label = tk.Label(self, text="Relevant Medical History:")
+                medicaldetails_label.pack(anchor="w", padx=10)
+                medicaldetails_entry = tk.Entry(self)
                 medicaldetails_entry.pack(anchor="w", padx=10)
 
                 # labels for insurance information
+                # Primary Insurance: The patient is a Subscriber/Policy Holder:
+                # Y/N Secondary Insurance: The patient is a Subscriber/Policy Holder: Y/N
                 insuranceinfo_label = tk.Label(self, text="Insurance Information:")
                 insuranceinfo_label.pack(anchor="w", padx=10)
 
-                insuranceinfo_entry = tk.Entry(self)
-                insuranceinfo_entry.pack(anchor="w", padx=10)
+                secondaryins_label=tk.Label(self, text="Secondary Insurance:")
+                secondaryins_label.pack(anchor="w", padx=10)
+                secondaryins_entry = tk.Entry(self)
+                secondaryins_entry.pack(anchor="w", padx=10)
 
-                billing_label = tk.Label(self, text="Billing Information:")
-                billing_label.pack(anchor="w", padx=10)
-                self.billing_toggle_var = tk.IntVar(value=0)
-                billing_toggle_checkbox = tk.Checkbutton(self, text="Same as Address in Page 1",
-                                                         variable=self.billing_toggle_var)
-                billing_toggle_checkbox.pack(anchor='w', padx=10)
-                city_label = tk.Label(self, text="Country")
-                city_label.pack(anchor='w', padx=10)
-                city_entry = tk.Entry(self)
-                city_entry.pack(anchor='w', padx=10)
+                ifotherinsurance_label = tk.Label(self, text="Insurance Information (if other than patient)")
+                ifotherinsurance_label.pack(anchor="w", padx=10)
+                subs_label=tk.Label(self, text="Subscriber/Policy Holder")
+                subs_label.pack(anchor="w", padx=10)
+                subs_entry = tk.Entry(self)
+                subs_entry.pack(anchor="w", padx=10)
+                relation_label=tk.Label(self, text="Relatonship with Patient")
+                relation_label.pack(anchor="w", padx=10)
+                relation_entry = tk.Entry(self)
+                relation_entry.pack(anchor="w", padx=10)
 
-                Postcode_label = tk.Label(self, text="Postal Code")
-                Postcode_label.pack(anchor='w', padx=10)
-                Postcode_entry = tk.Entry(self)
-                Postcode_entry.pack(anchor='w', padx=10)
+
 
 
         button = tk.Button(self, text="Go to Page 1", command=lambda: controller.show_frame(Page1))
@@ -370,6 +402,43 @@ class Page4(tk.Frame):
         button.pack(side="bottom")
         button = tk.Button(self, text="Go to Page 3", command=lambda: controller.show_frame(Page3))
         button.pack(side="bottom")
+        button = tk.Button(self, text="Go to Page 5", command=lambda: controller.show_frame(Page5))
+        button.pack(side="bottom")
+
+
+class Page5(tk.Frame):
+    def __init__(self, parent, controller):
+        tk.Frame.__init__(self, parent)
+        label = tk.Label(self, text= "Clinic Form 5")
+        label.pack(padx=10, pady=10)
+        d_columns = [ "Billing Information"]
+
+
+        for column in d_columns:
+            if column == "Billing Information":
+                billing_label = tk.Label(self, text="Billing Information:")
+                billing_label.pack(anchor="w", padx=10)
+                self.billing_toggle_var = tk.IntVar(value=0)
+                billing_toggle_checkbox = tk.Checkbutton(self, text="Same as Address in Page 1",
+                                                         variable=self.billing_toggle_var)
+                billing_toggle_checkbox.pack(anchor='w', padx=10)
+
+                country_label = tk.Label(self, text="Country")
+                country_label.pack(anchor='w', padx=10)
+                country_entry = tk.Entry(self)
+                country_entry.pack(anchor='w', padx=10)
+
+                Postcode_label = tk.Label(self, text="Postal Code")
+                Postcode_label.pack(anchor='w', padx=10)
+                Postcode_entry = tk.Entry(self)
+                Postcode_entry.pack(anchor='w', padx=10)
+
+                button = tk.Button(self, text="Go to Page 1", command=lambda: controller.show_frame(Page1))
+                button.pack(side="bottom")
+                button = tk.Button(self, text="Go to Page 2", command=lambda: controller.show_frame(Page2))
+                button.pack(side="bottom")
+                button = tk.Button(self, text="Go to Page 3", command=lambda: controller.show_frame(Page3))
+                button.pack(side="bottom")
 
 
 tk = Clinic_Forum()
