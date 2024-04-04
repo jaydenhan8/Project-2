@@ -351,7 +351,10 @@ class Page3(tk.Frame):
         button.pack(side="left", padx=5, pady=5)
         button = tk.Button(self, text="Go to Page 5", command=lambda: controller.show_frame(Page5))
         button.pack(side="left", padx=5, pady=5)
-
+        ### submit button ##
+        button = tk.Button(self, text="Submit", width=10)
+        button.pack()
+    
     def show_hide_spouse(self, *args):
         self.spouse_frame.pack_forget()
         if self.marital_status.get() == "Married":
