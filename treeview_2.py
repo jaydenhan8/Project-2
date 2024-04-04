@@ -1,12 +1,14 @@
 from tkinter import ttk
 import tkinter as tk
 
+
+
 class Clinic_Forum(tk.Tk):
 
     def __init__(self, *args, **kwargs):
 
         tk.Tk.__init__(self, *args, **kwargs)
-        self.geometry("640x480")
+        self.geometry("1280x720")
 
         container = tk.Frame(self)
 
@@ -157,6 +159,9 @@ class Page1(tk.Frame):
         button = tk.Button(self, text="Go to Page 5", command=lambda: controller.show_frame(Page5))
         button.pack(side="left", padx=5, pady=5)
 
+
+        button = tk.Button(self, text="Submit", width=10)
+        button.pack()
         #tree.insert(parent="", 0, text="Title", values=())
 
 
@@ -351,10 +356,7 @@ class Page3(tk.Frame):
         button.pack(side="left", padx=5, pady=5)
         button = tk.Button(self, text="Go to Page 5", command=lambda: controller.show_frame(Page5))
         button.pack(side="left", padx=5, pady=5)
-        ### submit button ##
-        button = tk.Button(self, text="Submit", width=10)
-        button.pack()
-    
+
     def show_hide_spouse(self, *args):
         self.spouse_frame.pack_forget()
         if self.marital_status.get() == "Married":
