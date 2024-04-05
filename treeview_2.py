@@ -161,6 +161,10 @@ class Page1(tk.Frame):
         button.pack(side="left", padx=5, pady=5)
 
 
+        button = tk.Button(self, text="Submit", width=10, command=lambda: entries(Page1))
+        button.pack()
+        #tree.insert(parent="", 0, text="Title", values=())
+
         def entries(self):
         #getting all of the data in the first page
             first_n = firstn_entry.get()
@@ -180,6 +184,27 @@ class Page1(tk.Frame):
             print("First Name:", first_n)
             print("Middle Name:", middle_n)
             print("Last Name:", last_n)
+
+
+
+            conn = sqlite3.connect("clinic.db")
+
+            table_query = '''CREATE TABLE IF NOT EXISTS c_column (first_n  TEXT, middle_n TEXT)  
+
+            '''
+            conn.execute(table_query)
+
+            # data insert!!
+
+            data_insert_que = '''INSERT INTO c_column (first_n, middle_n) VALUES (?, ?)
+            '''
+            data_insert_tup = (first_n,
+                               middle_n)
+
+            cursor = conn.cursor()
+            cursor.execute(data_insert_que, data_insert_tup)
+            conn.commit()
+            conn.close()
 
 
 
@@ -515,31 +540,7 @@ class Page5(tk.Frame):
                 button = tk.Button(self, text="Go to Page 4", command=lambda: controller.show_frame(Page4))
                 button.pack(side="left", padx=5, pady=5)
 
-                button = tk.Button(self, text="Submit", width=10, command=lambda: entries(Page5))
-                button.pack()
-                 #tree.insert(parent="", 0, text="Title", values=())
 
-
-
-conn = sqlite3.connect("clinic.db")
-
-table_query = '''CREATE TABLE IF NOT EXISTS c_column (first_n  TEXT, middle_n TEXT)  
-
-'''
-conn.execute(table_query)
-
-#data insert!!
-
-data_insert_que = ''' INSERT INTO c_column (first_n, middle_n) VALUES (?, ?)
-
-'''
-
-data_insert_tup = (first_n, middle_n)
-
-cursor = conn.cursor()
-cursor.execute(data_insert_que, data_insert_tup)
-conn.commit(self)
-conn.close()
 
 tk = Clinic_Forum()
 tk.mainloop()
