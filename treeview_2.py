@@ -161,10 +161,6 @@ class Page1(tk.Frame):
         button.pack(side="left", padx=5, pady=5)
 
 
-        button = tk.Button(self, text="Submit", width=10, command=lambda: entries(Page1))
-        button.pack()
-        #tree.insert(parent="", 0, text="Title", values=())
-
         def entries(self):
         #getting all of the data in the first page
             first_n = firstn_entry.get()
@@ -518,6 +514,10 @@ class Page5(tk.Frame):
                 button.pack(side="left", padx=5, pady=5)
                 button = tk.Button(self, text="Go to Page 4", command=lambda: controller.show_frame(Page4))
                 button.pack(side="left", padx=5, pady=5)
+
+                button = tk.Button(self, text="Submit", width=10, command=lambda: entries(Page5))
+                button.pack()
+                 #tree.insert(parent="", 0, text="Title", values=())
 
 
 
