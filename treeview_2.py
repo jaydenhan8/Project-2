@@ -1,5 +1,6 @@
 from tkinter import ttk
 import tkinter as tk
+import sqlite3
 
 
 
@@ -160,9 +161,29 @@ class Page1(tk.Frame):
         button.pack(side="left", padx=5, pady=5)
 
 
-        button = tk.Button(self, text="Submit", width=10)
+        button = tk.Button(self, text="Submit", width=10, command=lambda: entries(Page1))
         button.pack()
         #tree.insert(parent="", 0, text="Title", values=())
+
+        def entries(self):
+        #getting all of the data in the first page
+            first_n = firstn_entry.get()
+            middle_n = middlen_entry.get()
+            last_n = lastn_entry.get()
+            preffered_n = prefferedn_entry.get()
+            address_n = street_entry.get()
+            asu_n = asu_entry.get()
+            city_n = city_entry.get()
+            province_n = Province_entry.get()
+            postal_n = Postcode_entry.get()
+            birth_n = birthday_entry.get()
+            gender_n = gender_var.get()
+
+            # simply exists to see if the submit button works
+            print("First Name:", first_n)
+            print("Middle Name:", middle_n)
+            print("Last Name:", last_n)
+
 
 
 class Page2(tk.Frame):
@@ -497,6 +518,16 @@ class Page5(tk.Frame):
                 button = tk.Button(self, text="Go to Page 4", command=lambda: controller.show_frame(Page4))
                 button.pack(side="left", padx=5, pady=5)
 
+
+
+conn = sqlite3.connect("clinic.db")
+
+table_page1_query = '''CREATE TABLE IF NOT EXIST c_column (first_n  TEXT, middle_n TEXT)  
+
+'''
+conn.execute(table_page1_query)
+
+conn.close()
 
 tk = Clinic_Forum()
 tk.mainloop()
