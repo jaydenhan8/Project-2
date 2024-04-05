@@ -1,5 +1,20 @@
 import tkinter
 from tkinter import ttk
+import sqlite3
+
+### make connection with sqlite database ###
+conn = sqlite3.connect('clinic.db')
+cursor = conn.cursor()
+
+cursor.execute("SELECT * From c_column")
+
+for row in cursor.fetchall():
+  patient_number = row[0]
+  preferred_name = row[1]
+
+print("Patient Number:", patient_number)
+print("Preferred Name:", preferred_name)
+      
 
 window = tkinter.Tk()
 window.title("Doctor View")
@@ -43,6 +58,7 @@ medical_history.grid(row=5, column=0)
 
 
 
-
+### close connection with mysql ###
+conn.close()
 ### infinite loop that runs until user exit ###
 window.mainloop()
