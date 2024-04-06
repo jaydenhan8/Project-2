@@ -160,10 +160,8 @@ class Page1(tk.Frame):
         button = tk.Button(self, text="Go to Page 5", command=lambda: controller.show_frame(Page5))
         button.pack(side="left", padx=5, pady=5)
 
-
-        button = tk.Button(self, text="Submit Page 1", width=10, command=lambda: entries(Page1, Page2))
+        button = tk.Button(self, text="Submit Page 1", width=10, command=lambda: entries(Page1))
         button.pack()
-
 
         def entries(self):
         #getting all of the data in the first page
