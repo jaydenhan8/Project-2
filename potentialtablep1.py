@@ -161,7 +161,7 @@ class Page1(tk.Frame):
         button.pack(side="left", padx=5, pady=5)
 
 
-        button = tk.Button(self, text="Submit", width=10, command=lambda: entries(Page1))
+        button = tk.Button(self, text="Submit", width=10, command=lambda: entries(Page1, Page2))
         button.pack()
 
 
@@ -312,6 +312,39 @@ class Page2(tk.Frame):
 
                 tk.Label(self, text="", height=1).pack()
 
+            def entries_pt2():
+                health_card = healthcard_entry.get()
+                cell_phone = Cell_entry.get()
+                email = email_entry.get()
+                emergency_contact_phone = Cellr_entry.get()
+
+                print("Health Card:", health_card)
+                print("Phone #:", cell_phone)
+                print("Email:", email)
+                print("Emergency Contact #:", emergency_contact_phone)
+
+                conn = sqlite3.connect("clinicform.db")
+                cursor = conn.cursor()
+
+                cursor.execute('''CREATE TABLE IF NOT EXISTS contact_info (
+                                        id INTEGER PRIMARY KEY AUTOINCREMENT,
+                                        health_card_number TEXT,
+                                        cell_phone TEXT,
+                                        email TEXT,
+                                        emergency_contact_phone TEXT
+                                    )''')
+                conn.commit()
+
+                data_insert_que = '''INSERT INTO contact_info (
+                                        health_card_number, cell_phone, email, emergency_contact_phone
+                                    ) VALUES (?, ?, ?, ?)'''
+                data_insert_tup = (health_card, cell_phone, email, emergency_contact_phone)
+
+                cursor.execute(data_insert_que, data_insert_tup)
+                conn.commit()
+                conn.close()
+
+
         button = tk.Button(self, text="Go to Page 1", command=lambda: controller.show_frame(Page1))
         button.pack(side="left", padx=5, pady=5)
         button = tk.Button(self, text="Go to Page 3", command=lambda: controller.show_frame(Page3))
@@ -320,6 +353,8 @@ class Page2(tk.Frame):
         button.pack(side="left", padx=5, pady=5)
         button = tk.Button(self, text="Go to Page 5", command=lambda: controller.show_frame(Page5))
         button.pack(side="left", padx=5, pady=5)
+        submit_button = tk.Button(self, text="Submit", width=10, command=entries_pt2)
+        submit_button.pack()
 
 class Page3(tk.Frame):
     def __init__(self, parent, controller):
