@@ -1,0 +1,21 @@
+        def delete_entry():
+
+
+
+            # Create a database or connect to one that exists
+            conn = sqlite3.connect('clinicform.db')
+
+            # Create a cursor instance
+            c = conn.cursor()
+
+            # Delete From Database
+            delete_p1_que = ('''DELETE from patient_info''')
+
+            conn.execute(delete_p1_que, (id))
+
+            # Commit changes
+            conn.commit()
+
+
+            conn.close()
+
