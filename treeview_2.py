@@ -1,5 +1,7 @@
 from tkinter import ttk
 import tkinter as tk
+import os
+import sys
 import sqlite3
 
 
@@ -9,7 +11,7 @@ class Clinic_Forum(tk.Tk):
     def __init__(self, *args, **kwargs):
 
         tk.Tk.__init__(self, *args, **kwargs)
-        self.geometry("1280x720")
+        self.geometry("1280x840")
 
         container = tk.Frame(self)
 
@@ -36,6 +38,7 @@ class Clinic_Forum(tk.Tk):
         frame = self.frames[cont]
 
         frame.tkraise()
+
 
 
 class Menu_Clinic():
@@ -147,7 +150,9 @@ class Page1(tk.Frame):
                 other_radio = tk.Radiobutton(self, text="Other", variable=gender_var, value="Other")
                 other_radio.pack(anchor='w', padx=10, side="left")
 
-
+        def restart_program():
+            python = sys.executable
+            os.execl(python, python, *sys.argv)
 
 
         button = tk.Button(self, text="Go to Page 2", command=lambda: controller.show_frame(Page2))
@@ -164,6 +169,9 @@ class Page1(tk.Frame):
         button = tk.Button(self, text="Submit", width=10, command=lambda: entries(Page1))
         button.pack()
         #tree.insert(parent="", 0, text="Title", values=())
+
+        button = tk.Button(self, text="Restart", width=10, command=lambda: restart_program())
+        button.pack()
 
         def entries(self):
             #getting all of the data from the first page
