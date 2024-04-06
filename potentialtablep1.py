@@ -161,7 +161,7 @@ class Page1(tk.Frame):
         button.pack(side="left", padx=5, pady=5)
 
 
-        button = tk.Button(self, text="Submit", width=10, command=lambda: entries(Page1, Page2))
+        button = tk.Button(self, text="Submit Page 1", width=10, command=lambda: entries(Page1, Page2))
         button.pack()
 
 
@@ -353,7 +353,7 @@ class Page2(tk.Frame):
         button.pack(side="left", padx=5, pady=5)
         button = tk.Button(self, text="Go to Page 5", command=lambda: controller.show_frame(Page5))
         button.pack(side="left", padx=5, pady=5)
-        submit_button = tk.Button(self, text="Submit", width=10, command=entries_pt2)
+        submit_button = tk.Button(self, text="Submit Page 2", width=10, command=entries_pt2)
         submit_button.pack()
 
 class Page3(tk.Frame):
@@ -362,6 +362,7 @@ class Page3(tk.Frame):
         label = tk.Label(self, text= "Clinic Form 3")
         label.pack(padx=10, pady=10)
         d_columns = [ "Occupation", "Employer", "Martial Status"]
+
 
         pg_label = tk.Label(self, text="Parent/Guardian Information Continued:")
         pg_label.pack(anchor="w", padx=10)
@@ -433,6 +434,32 @@ class Page3(tk.Frame):
                 self.spouse_frame.pack_forget()
                 self.marital_status.trace("w", self.show_hide_spouse)
 
+                def entries_pt3():
+                    employer = emp_entry.get()
+                    occupation = occu_entry.get()
+
+                    print("Employer:", employer)
+                    print("Occupation:", occupation)
+
+                    conn = sqlite3.connect("clinicform.db")
+                    cursor = conn.cursor()
+
+                    cursor.execute('''CREATE TABLE IF NOT EXISTS occupation_info (
+                                            id INTEGER PRIMARY KEY AUTOINCREMENT,
+                                            employer TEXT,
+                                            occupation TEXT
+                                        )''')
+                    conn.commit()
+
+                    data_insert_que = '''INSERT INTO occupation_info (
+                                            employer, occupation
+                                        ) VALUES (?, ?)'''
+                    data_insert_tup = (employer, occupation)
+
+                    cursor.execute(data_insert_que, data_insert_tup)
+                    conn.commit()
+                    conn.close()
+
         button = tk.Button(self, text="Go to Page 1", command=lambda: controller.show_frame(Page1))
         button.pack(side="left", padx=5, pady=5)
         button = tk.Button(self, text="Go to Page 2", command=lambda: controller.show_frame(Page2))
@@ -441,6 +468,8 @@ class Page3(tk.Frame):
         button.pack(side="left", padx=5, pady=5)
         button = tk.Button(self, text="Go to Page 5", command=lambda: controller.show_frame(Page5))
         button.pack(side="left", padx=5, pady=5)
+        submit_button = tk.Button(self, text="Submit Page 3", width=10, command=entries_pt3)
+        submit_button.pack()
 
     def show_hide_spouse(self, *args):
         self.spouse_frame.pack_forget()
@@ -537,6 +566,8 @@ class Page4(tk.Frame):
                 relation_entry = tk.Entry(self)
                 relation_entry.pack(anchor="w", padx=10)
 
+
+
         button = tk.Button(self, text="Go to Page 1", command=lambda: controller.show_frame(Page1))
         button.pack(side="left", padx=5, pady=5)
         button = tk.Button(self, text="Go to Page 2", command=lambda: controller.show_frame(Page2))
@@ -545,6 +576,9 @@ class Page4(tk.Frame):
         button.pack(side="left", padx=5, pady=5)
         button = tk.Button(self, text="Go to Page 5", command=lambda: controller.show_frame(Page5))
         button.pack(side="left", padx=5, pady=5)
+
+
+
 
 
 class Page5(tk.Frame):
@@ -573,6 +607,30 @@ class Page5(tk.Frame):
                 Postcode_entry = tk.Entry(self)
                 Postcode_entry.pack(anchor='w', padx=10)
 
+                def entries_pt5():
+                    country = country_entry.get()
+
+                    print("Country:", country)
+
+                    conn = sqlite3.connect("clinicform.db")
+                    cursor = conn.cursor()
+
+                    cursor.execute('''CREATE TABLE IF NOT EXISTS billing_info (
+                                                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                                                    country TEXT
+                                                )''')
+                    conn.commit()
+
+                    data_insert_que = '''INSERT INTO billing_info (country) VALUES (?)'''
+                    data_insert_tup = (country,)
+
+                    cursor.execute(data_insert_que, data_insert_tup)
+                    conn.commit()
+                    conn.close()
+
+                submit_button = tk.Button(self, text="Submit page 5", width=10, command=entries_pt5)
+                submit_button.pack()
+
                 button = tk.Button(self, text="Go to Page 1", command=lambda: controller.show_frame(Page1))
                 button.pack(side="left", padx=5, pady=5)
                 button = tk.Button(self, text="Go to Page 2", command=lambda: controller.show_frame(Page2))
@@ -582,8 +640,5 @@ class Page5(tk.Frame):
                 button = tk.Button(self, text="Go to Page 4", command=lambda: controller.show_frame(Page4))
                 button.pack(side="left", padx=5, pady=5)
 
-
-
 tk = Clinic_Forum()
 tk.mainloop()
-
