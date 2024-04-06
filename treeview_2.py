@@ -166,7 +166,7 @@ class Page1(tk.Frame):
         #tree.insert(parent="", 0, text="Title", values=())
 
         def entries(self):
-        #getting all of the data in the first page
+            #getting all of the data from the first page
             first_n = firstn_entry.get()
             middle_n = middlen_entry.get()
             last_n = lastn_entry.get()
@@ -179,33 +179,53 @@ class Page1(tk.Frame):
             birth_n = birthday_entry.get()
             gender_n = gender_var.get()
 
-
-            # simply exists to see if the submit button works
             print("First Name:", first_n)
             print("Middle Name:", middle_n)
             print("Last Name:", last_n)
+            print("Preferred Name:", preffered_n)
+            print("Gender:", gender_n)
+            print("Birthday:", birth_n)
+            print("Postal Code:", postal_n)
+            print("Address:", address_n)
+            print("Apt/Suite/Unit:", asu_n)
+            print("City:", city_n)
 
 
+            conn = sqlite3.connect("clinicform.db")
+            cursor = conn.cursor()
 
-            conn = sqlite3.connect("clinic.db")
 
-            table_query = '''CREATE TABLE IF NOT EXISTS c_column (first_n  TEXT, middle_n TEXT)  
-
-            '''
+            table_query = '''CREATE TABLE IF NOT EXISTS patient_info (
+                                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                                    first_name TEXT,
+                                    middle_name TEXT,
+                                    last_name TEXT,
+                                    preferred_name TEXT,
+                                    gender TEXT,
+                                    birthday TEXT,
+                                    street_address TEXT,
+                                    apt_suite_unit TEXT,
+                                    city TEXT,
+                                    province TEXT,
+                                    postal_code TEXT
+                                )'''
             conn.execute(table_query)
 
-            # data insert!!
+            #this is the data that will go into the patient info table
+            data_insert_que = '''INSERT INTO patient_info (
+                                    first_name, middle_name, last_name, preferred_name,
+                                    gender, birthday, street_address, apt_suite_unit,
+                                    city, province, postal_code
+                                ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)'''
+            data_insert_tup = (
+                first_n, middle_n, last_n, preffered_n,
+                gender_n, birth_n, address_n, asu_n,
+                city_n, province_n, postal_n
+            )
 
-            data_insert_que = '''INSERT INTO c_column (first_n, middle_n) VALUES (?, ?)
-            '''
-            data_insert_tup = (first_n,
-                               middle_n)
-
-            cursor = conn.cursor()
             cursor.execute(data_insert_que, data_insert_tup)
             conn.commit()
             conn.close()
-
 
 
 class Page2(tk.Frame):
@@ -314,6 +334,36 @@ class Page2(tk.Frame):
         button = tk.Button(self, text="Go to Page 5", command=lambda: controller.show_frame(Page5))
         button.pack(side="left", padx=5, pady=5)
 
+        def entries_pt2(self): #getting entries from page 2 to connnect to sql
+
+            health_card = healthcard_entry.get()
+            cell_phone = Cell_entry.get()
+            home_phone = home_entry.get()
+            work_phone = work_entry.get()
+            email = email_entry.get()
+            emergency_contact_phone = Cellr_entry.get()
+            print("Healthcard:", health_card)
+            print("Phone #:", cell_phone)
+            print("Home #:", home_phone)
+            print("Work #:", work_phone)
+            print("Email", email)
+            print("Emergency Contact #:", emergency_contact_phone)
+
+            conn = sqlite3.connect("clinicform.db")
+            cursor = conn.cursor()
+                #creating a new tbale for contact info and health card info + emergency contact but within same database/sql file
+            cursor.execute('''CREATE TABLE IF NOT EXISTS contact_info (
+                                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                                    health_card_number TEXT,
+                                    cell_phone TEXT,
+                                    home_phone TEXT,
+                                    work_phone TEXT,
+                                    email TEXT,
+                                    emergency_contact_phone TEXT
+                                )''')
+            conn.commit()
+            conn.close()
+
 class Page3(tk.Frame):
     def __init__(self, parent, controller):
         tk.Frame.__init__(self, parent)
@@ -327,10 +377,10 @@ class Page3(tk.Frame):
         lastn_label.pack(anchor='w', padx=10)
         lastn_entry = tk.Entry(self)
         lastn_entry.pack(anchor='w', padx=10)
-        Cellr_label = tk.Label(self, text="Phone #")
-        Cellr_label.pack(anchor='w', padx=10)
-        Cellr_entry = tk.Entry(self)
-        Cellr_entry.pack(anchor='w', padx=10)
+        Cellrr_label = tk.Label(self, text="Phone #")
+        Cellrr_label.pack(anchor='w', padx=10)
+        Cellrr_entry = tk.Entry(self)
+        Cellrr_entry.pack(anchor='w', padx=10)
 
         email_label = tk.Label(self, text="Email")
         email_label.pack(anchor='w', padx=10)
